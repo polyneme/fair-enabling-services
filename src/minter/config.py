@@ -1,5 +1,8 @@
+import os
 from functools import lru_cache
 
+from pymongo import MongoClient
+from pymongo.database import Database as MongoDatabase
 
 TYPECODES = [
     {
@@ -27,3 +30,13 @@ def typecode_type(typecode):
             return t["type"], t["note"]
     else:
         raise ValueError(f"typecode '{typecode}' not found")
+
+
+@lru_cache
+def get_mongo_db() -> MongoDatabase:
+    _client = MongoClient(
+        host=os.getenv("MONGO_HOST"),
+        username=os.getenv("MONGO_USERNAME"),
+        password=os.getenv("MONGO_PASSWORD"),
+    )
+    return _client["minter"]

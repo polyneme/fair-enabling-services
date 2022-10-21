@@ -4,8 +4,6 @@ from typing import List
 import base32_lib as base32
 from pymongo.database import Database as MongoDatabase
 
-from minter.config import typecode_type
-
 
 def generate_id(length=10, split_every=4, checksum=True) -> str:
     """Generate random base32 string: a user-shareable ID for a database entity.
@@ -58,23 +56,20 @@ def encode_id(number: int, split_every=4, min_length=10, checksum=True) -> int:
 
 
 # sping: "semi-opaque string" (https://n2t.net/e/n2t_apidoc.html).
-SPING_SIZE_THRESHOLDS = [(n, (2 ** (5 * n)) // 2) for n in [2, 4, 6, 8, 10]]
+SPING_SIZE_THRESHOLDS = [(n, (2 ** (5 * n)) // 2) for n in [6, 8, 10]]
 
 
-def collection_name(naa, typecode, shoulder):
-    return f"ids_{naa}_{typecode}_{shoulder}"
+def collection_name(naa, shoulder):
+    return f"ids_{naa}_{shoulder}"
 
 
 def generate_ids(
     mdb: MongoDatabase,
-    owner: str,
-    populator: str,
     number: int,
     naa: str = "polyneme",
     shoulder: str = "1fk1",
-    typecode: str = "ent",
 ) -> List[str]:
-    collection = mdb.get_collection(collection_name(naa, typecode, shoulder))
+    collection = mdb.get_collection(collection_name(naa, shoulder))
     n_chars = next(
         (
             n
@@ -102,22 +97,17 @@ def generate_ids(
             # All attribute names beginning with "__a" are reserved...
             # https://github.com/jkunze/n2t-eggnog/blob/0f0f4c490e6dece507dba710d3557e29b8f6627e/egg#L1882
             # XXX mongo is a pain with '.'s in field names, so not using e.g. "_.e" names.
-            tc_type, tc_note = typecode_type(typecode)
             docs = [
                 {
                     "@context": "https://n2t.net/e/n2t_apidoc.html#identifier-metadata",
                     "_id": eid_decoded,
-                    "who": populator,
-                    "what": f"{tc_type} -- {tc_note}",
                     "when": datetime.now(timezone.utc).isoformat(timespec="seconds"),
                     "how": shoulder,
-                    "where": f"{naa}:{typecode}{shoulder}{eid}",
+                    "where": f"{naa}:{shoulder}{eid}",
                     "__as": "reserved",  # status, public|reserved|unavailable
-                    "__ao": owner,  # owner
                     "__ac": datetime.now(timezone.utc).isoformat(
                         timespec="seconds"
                     ),  # created
-                    "__at": typecode,
                 }
                 for eid, eid_decoded in not_taken
             ]
@@ -130,7 +120,6 @@ def generate_ids(
 
 def generate_one_id(
     mdb: MongoDatabase = None,
-    typecode: str = "oaa",
     shoulder: str = "11",
 ) -> str:
     """Generate unique Crockford Base32-encoded ID for mdb repository.
@@ -140,15 +129,12 @@ def generate_one_id(
     """
     return generate_ids(
         mdb,
-        owner="_system",
-        populator="_system",
         number=1,
-        naa="nmdc",
+        naa="polyneme",
         shoulder=shoulder,
-        typecode=typecode,
     )[0]
 
 
 def local_part(id_):
-    """nmdc:fk0123 -> fk0123"""
+    """prefix:fk0123 -> fk0123"""
     return id_.split(":", maxsplit=1)[1]
