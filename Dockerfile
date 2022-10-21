@@ -8,14 +8,13 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
     apt-get -y clean && \
     rm -rf /var/lib/apt/lists/*
 
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
 
-RUN useradd --create-home appuser
-USER appuser
+COPY requirements/main.txt /tmp/requirements.txt
+RUN pip install --no-cache-dir --upgrade -r /tmp/requirements.txt
 
-WORKDIR /app
-COPY . .
+RUN mkdir -p /src
+COPY src/ /src/
+RUN pip install --no-cache-dir --editable /src
+COPY tests/ /tests/
 
-ENV PYTHONFAULTHANDLER=1
-ENTRYPOINT ["tini", "--", "uvicorn", "app.main:app", "--reload"]
+WORKDIR /src

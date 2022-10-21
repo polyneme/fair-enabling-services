@@ -1,4 +1,5 @@
-black
+base32_lib
 fastapi
+pymongo
 toolz
 uvicorn[standard]

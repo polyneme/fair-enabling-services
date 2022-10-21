@@ -4,7 +4,7 @@ from typing import List
 import base32_lib as base32
 from pymongo.database import Database as MongoDatabase
 
-from nmdc_runtime.api.models.id import typecode_type
+from minter.config import typecode_type
 
 
 def generate_id(length=10, split_every=4, checksum=True) -> str:
@@ -70,9 +70,9 @@ def generate_ids(
     owner: str,
     populator: str,
     number: int,
-    naa: str = "nmdc",
+    naa: str = "polyneme",
     shoulder: str = "1fk1",
-    typecode: str = "oaa",
+    typecode: str = "ent",
 ) -> List[str]:
     collection = mdb.get_collection(collection_name(naa, typecode, shoulder))
     n_chars = next(
