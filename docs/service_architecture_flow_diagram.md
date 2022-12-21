@@ -17,14 +17,11 @@ flowchart TD
     s_resolver["resolver\n(get metadata)"]
     s_retriever["retriever\n(get data objects)"]
     s_harmonizer[harmonizer]
-
     s_binder[binder]
     b_index[(index)]
     b_object_store[("object store")]
-
     s_seng["search engine"]
     s_authnz["authnz service\n(authentication and authorization)"]
-
     o_request[/request/]:::user
     s_entrypoint[entrypoint]
     s_router[router]
