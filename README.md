@@ -6,11 +6,17 @@ Related to [FAIR-Enabling Resource](https://w3id.org/fair/fip/terms/FAIR-Enablin
 
 # Design
 
-Service Architecture Flow Diagram:
+## Service architecture flow diagram
 
 [![service architecture flow diaram](docs/fes-arch-flow-diagram.png)](docs/service_architecture_flow_diagram.md)
 
-# References
+(click on diagram to go to the [Mermaid](https://mermaid.js.org/) Markdown source file in this repo)
+
+## Code architecture
+
+Attempting a domain-driven design and event-driven microservices approach, with corresponding code organization, as detailed by Percival and Gregory in [^patterns].
+
+# Further Reading
 
 Ideas evolved from:
 * [2022-10-03] https://donnywinston.com/posts/fair-enabling-services-redux/
@@ -18,3 +24,7 @@ Ideas evolved from:
 * [2022-10-21] https://donnywinston.com/posts/implementing-the-fair-principles-through-fair-enabling-artifacts-and-services/
 
 [2022-12-21] [https://doc.traefik.io/traefik/routing/overview/](https://web.archive.org/web/20221221152411/https://doc.traefik.io/traefik/routing/overview/)
+
+[^patterns]: H. J. W. Percival and R. G. Gregory, _Architecture patterns with Python: enabling test-driven
+development, domain-driven design, and event-driven microservices_, First edition. O’Reilly, 2020.
+([available online](https://www.cosmicpython.com/book/preface.html)).
