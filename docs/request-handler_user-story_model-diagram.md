@@ -9,6 +9,8 @@ flowchart TD
     %% p1[[predefined step]]
     classDef literal fill:#dff;,stroke:#bbb
     classDef user fill:#ffa;,stroke:#bbb
+    
+    %% request-handler user-story model-diagram
 
     b_typecodes[(Typecodes)]-. member .->o_biosample[/Biosample/]
     o_biosample-. name .->o_tcbiosample[/"#quot;bsm#quot;"/]:::literal
