@@ -26,7 +26,7 @@ flowchart TD
     s_entrypoint[entrypoint]
     s_router[router]
 
-    %%  edge routing (incl. authzn)
+    %%  edge routing (incl. authnz)
     o_request-->s_entrypoint
     s_entrypoint--->s_router
     s_router-->s_authnz
