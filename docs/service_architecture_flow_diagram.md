@@ -21,15 +21,15 @@ flowchart TD
     b_index[(index)]
     b_object_store[("object store")]
     s_seng["search engine"]
-    s_authnz["authnz service\n(authentication and authorization)"]
+    s_authnz["authnz middleware\n(authentication and authorization)"]
     o_request[/request/]:::user
     s_entrypoint[entrypoint]
     s_router[router]
 
     %%  edge authnz + routing
     o_request-->s_entrypoint
-    s_entrypoint-->s_authnz
     s_entrypoint--->s_router
+    s_router-->s_authnz
     
     %% minting
     s_router--->s_minter  
