@@ -1,22 +1,22 @@
 An attempt to design and deploy prototypical [FAIR-Enabling Services](https://donnywinston.com/posts/implementing-the-fair-principles-through-fair-enabling-artifacts-and-services/).
 
-# Intro
+## Intro
 
 Related to [FAIR-Enabling Resource](https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource) ***artifacts***, from the [FAIR Implementation Profile (FIP) ontology](https://w3id.org/fair/fip/terms/FIP-Ontology), are ***services***. These services are what you deploy to implement each of the 15 [FAIR Principles](https://w3id.org/fair/principles/terms/FAIR) (from Box 2 of the [seminal publication](https://doi.org/10.1038/sdata.2016.18)) for any actual given digital research object. 
 
-# Design
+## Design
 
-## Service architecture flow diagram
+### Service architecture flow diagram
 
 [![service architecture flow diaram](docs/fes-arch-flow-diagram.png)](docs/service_architecture_flow_diagram.md)
 
 (click on diagram to go to the [Mermaid](https://mermaid.js.org/) Markdown source file in this repo)
 
-## Code architecture
+### Code architecture
 
 Attempting a domain-driven design and event-driven microservices approach, with corresponding code organization, as detailed by Percival and Gregory in [^patterns].
 
-# Further Reading
+## Further Reading
 
 Ideas evolved from:
 * [2022-10-03] https://donnywinston.com/posts/fair-enabling-services-redux/
