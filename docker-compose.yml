@@ -35,7 +35,7 @@ services:
       - "traefik.http.routers.minter.rule=Host(`minter.test`)"
       - "traefik.http.routers.minter.entrypoints=web"
   mongo:
-    image: mongo:4.4-bionic
+    image: mongo:6.0-focal
     volumes:
       - fes_mongo_data:/data/db
     restart: always
